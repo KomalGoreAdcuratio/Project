@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pcdg9$kdw0w1g=yr=ft2%d1^b35*r7a(qz9@w3v5dg7)kr@b#@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,16 +79,31 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bank',
         'USER': 'postgres',
-        'HOST':'127.0.0.1',
-        'PASSWORD': '1234',
-        'PORT': 5433,
+        'HOST':'postgres-demo',
+        'PASSWORD': 'Welcome',
+        'PORT': 5432,
     },
      
-    'mongo': 
+    'mongo':
     {
-        'ENGINE': 'djongo',
-        'NAME': 'test',
-    }
+        "ENGIN":'djongo',
+        'NAME':'mongo_db',
+        'CLIENT':
+        {
+            "host":'mongo',
+            "post":27017,
+            "username":"root",
+            "password":"root"
+            },
+        "TEST":{
+            'MIRROR':'default'
+            }
+        }
+    # 'mongo': 
+    # {
+    #     'ENGINE': 'djongo',
+    #     'NAME': 'test',
+    # }
  }
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

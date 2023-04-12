@@ -14,7 +14,6 @@ import json
 
 class AccountListView(APIView):
     def get(self,request,pk=None):
-        
         if pk==None:
             account= Account.objects.all()
             accountSerializer = AccountSerializer(account, many=True)
@@ -23,7 +22,7 @@ class AccountListView(APIView):
             print(pk)
             account = Account.objects.filter(accountNumber=pk)
             print(account)
-            accountSerializer = AccountSerializer(account, many=True)
+            accountSerializer = AccountSerializer(account)
             return Response(accountSerializer.data)
     @csrf_exempt
     def post(self,request):
@@ -68,10 +67,6 @@ class AccountListView(APIView):
             return Response("Enter ID ")
         else:
             account =get_object_or_404(Account, pk=pk)
-        
-            
-           # accountSerializer = AccountSerializer(account, many=True)
-            
             account.delete()
             return Response("Deleted !!!")
     

@@ -1,0 +1,45 @@
+version: '3.9'
+services:
+  django:
+    image: 
+      django-docker:0.0.1
+    build: .
+    tty: true
+    ports:
+      -  8000:8000
+    depends_on:
+      - mongo
+      - postgres-demo
+    entrypoint: bash
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO INITDB ROOT USERNAME=root
+      - MONGO INITDB ROOT PASSWORD=root
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_USERNAME=root
+      - MONGO_INITDB_PASSWORD=root
+    volumes:
+      - /home/komal/mongodb/database:/data/db 
+    ports:
+      - 27017:27017
+  postgres-demo:
+    image: postgres
+    container_name: postgres-demo
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Welcome
+      - POSTGRES_DB=bank
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/var/lib/my_data
+    restart: always
+
