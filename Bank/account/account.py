@@ -20,11 +20,11 @@ class Account(models.Model):
     accountNumber=models.CharField(max_length=10, primary_key=True,validators=[checkAccountNumber])
     branch_Id=models.ForeignKey(Branch,  on_delete=models.CASCADE,default=1)
    # transaction=models.OneToOneField(Transactions,blank=True)
-    name=models.CharField(max_length=20)
+    name=models.CharField(max_length=100)
  #   aadharCard=models.IntegerField(validators=[checkAadhareNumber],blank=True)
     type=models.CharField(max_length=10,choices=[('Saving','Saving'),('Current','Current'),('Minor','Minor')],default='Saving')
   #  contactNumber= models.IntegerField(blank=True)
-    address=models.CharField(max_length=50, blank=True)
+    address=models.CharField(max_length=200, blank=True)
     balance=models.DecimalField( max_digits=100,default=10000.00, decimal_places=2 ,validators=[chechBalance])
     def __str__(self):
         return f"{self.accountNumber}"

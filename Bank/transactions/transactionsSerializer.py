@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from Bank.transactions.transactions import Transactiona
+from Bank.transactions.transactions import Transaction
 
 class TransactionsSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Transactiona
+        model = Transaction
         fields = '__all__'
        # fields = '__all__'

@@ -21,10 +21,12 @@ from Bank.transactions.transactionsView import TransactionListView
 from Bank.loan.loanView import LoanListView
 from Bank.transferAmount.transferAmountView import TransferAmountListView
 from Leads.views import LeadListView
+from Bank.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',BranchListView.as_view() ),
-    path('<int:pk>',BranchListView.as_view() ),
+    path('',home),
+    path('Branch',BranchListView.as_view() ),
+    path('Branch<int:pk>',BranchListView.as_view() ),
     path('Acc',AccountListView.as_view() ),
     path('Acc/<int:pk>',AccountListView.as_view() ),
     path('Transactions',TransactionListView.as_view() ),

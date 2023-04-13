@@ -1,7 +1,7 @@
 ### CLASS BASED API VIEW
 
 from rest_framework.response import Response
-from  Bank.transactions.transactions import Transactiona
+from  Bank.transactions.transactions import Transaction
 from Bank.transactions.transactionsSerializer import TransactionsSerializers
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
@@ -14,13 +14,13 @@ import json
 class TransactionListView(APIView):
     def get(self,request,pk=None):
         if pk==None:
-            transactions = Transactiona.objects.all()  #filter(pk=pk)
+            transactions = Transaction.objects.all()  #filter(pk=pk)
             print(transactions)
             transactionsSerializer = transactionsSerializer(transactions, many=True)
             return Response(transactionsSerializer.data)
           #  return Response("Enter Valid Account Number !!!! ")
         else:
-            transactions = Transactiona.objects.filter(accountNumber=pk)
+            transactions = Transaction.objects.filter(accountNumber=pk)
             transactionsSerializer = TransactionsSerializers(transactions, many=True)
             return Response(transactionsSerializer.data)
 
@@ -38,7 +38,7 @@ class TransactionListView(APIView):
         if pk==None:
             return Response("Enter ID ")
         else:
-            account =get_object_or_404(Transactiona, pk=pk)
+            account =get_object_or_404(Transaction, pk=pk)
             account.delete()
             return Response("Deleted !!!")
     

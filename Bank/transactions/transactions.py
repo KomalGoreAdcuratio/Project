@@ -12,7 +12,7 @@ def checkAmount(data):
     if data>0:
         return data
     raise ValidationError('Amount must be greater than 0')
-class Transactiona(models.Model):
+class Transaction(models.Model):
     transactionId=models.AutoField(primary_key=True)
     accountNumber=models.CharField(max_length=10,validators=[checkAccountNumber])
     toAccountNumber=models.ForeignKey(Account,on_delete=models.CASCADE)
@@ -30,7 +30,7 @@ class Transactiona(models.Model):
             accOfGetter.balance+=self.amount
             accOfGetter.save()
             accOfTranferer.save()
-        super(Transactiona, self).save(*args, **kwargs)
+        super(Transaction, self).save(*args, **kwargs)
     def delete(self,*args, **kwargs):
         accOfTranferer=Account.objects.get(accountNumber=self.accountNumber)
         accOfGetter=Account.objects.get(accountNumber=self.toAccountNumber)
@@ -41,4 +41,4 @@ class Transactiona(models.Model):
             accOfGetter.balance-=self.amount
             accOfGetter.save()
             accOfTranferer.save()
-        super(Transactiona, self).delete(*args, **kwargs)
+        super(Transaction, self).delete(*args, **kwargs)
