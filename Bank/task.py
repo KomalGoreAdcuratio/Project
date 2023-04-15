@@ -77,11 +77,14 @@ def dummyData():
             accountNumber= Account.objects.get(accountNumber= str(random.choice(Id))),
             type=random.choice(transationType),
             amount=random.randrange(10000,1000000,100),
-        )    
-        if s.type=='Deposit':
-            s.save()
-        elif s.accountNumber.balance-s.amount>=10000:
-            s.save()
+        ) 
+        try:   
+            if s.type=='Deposit':
+                s.save()
+            elif s.accountNumber.balance-s.amount>=10000:
+                s.save()
+        except:
+            pass
             
     
    

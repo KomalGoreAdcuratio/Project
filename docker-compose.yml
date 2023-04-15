@@ -12,7 +12,7 @@ services:
       - MONGO_INITDB_USERNAME=root
       - MONGO_INITDB_PASSWORD=root
     volumes:
-      - /home/komal/mongodb/database:/data/db 
+      - .:/var/lib/my_data
     ports:
       - 27017:27017
   postgres-demo:
