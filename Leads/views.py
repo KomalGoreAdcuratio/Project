@@ -3,14 +3,14 @@
 from rest_framework.response import Response
 from .models import Leads
 from .serializer import LeadSerializer
-#from bank.accountSerializer import AccountSerializer
+#from Bank.account.accountSerializer import AccountSerializer
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 import django_filters.rest_framework
 from django.shortcuts import get_object_or_404
-#from bank.account import Account
+#from Bank.account import Account
 import json
 
 class LeadListView(APIView):
@@ -25,6 +25,7 @@ class LeadListView(APIView):
             lead = Leads.objects.filter(leadNumber=pk)
             print(lead)
             leadSerializer = LeadSerializer(lead, many=True)
+            
             return Response(leadSerializer.data)
     @csrf_exempt
     def post(self,request):
@@ -33,7 +34,9 @@ class LeadListView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
+    
+    
     def put(self, request,pk=None):
         try:
             lead=Leads.objects.get(leadNumber=pk)
@@ -45,6 +48,16 @@ class LeadListView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
     
+    
+    def delete(self,request,pk=None):
+        if pk==None:
+            return Response("Enter ID ")
+        else:
+            branches = Leads.get_object_or_404( pk=pk)
+            #branchSerializer = BranchSerializer(branches, many=True)
+            branches.delete()
+            return Response("Deleted !!!")
+        
     # def patch(self, request,pk):
     #     try:
     #         lead=Leads.objects.get(leadNumber=pk)
@@ -53,6 +66,8 @@ class LeadListView(APIView):
     #     dic={
     #     'accountNumber':lead.leadNumber,
     #     'name':lead.name
+    
+    
     #     }
     #     serializedData=AccountSerializer(data=dic)
     #     # serializedData.is_valid

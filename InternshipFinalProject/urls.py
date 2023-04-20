@@ -24,9 +24,9 @@ from Leads.views import LeadListView
 from Bank.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
-    path('Branch',BranchListView.as_view() ),
-    path('Branch<int:pk>',BranchListView.as_view() ),
+    path('',home),                                                   #### LOAD DATA To DB
+    path('Branch',BranchListView.as_view() ),                        
+    path('Branch/<int:pk>',BranchListView.as_view() ),
     path('Acc',AccountListView.as_view() ),
     path('Acc/<int:pk>',AccountListView.as_view() ),
     path('Transactions',TransactionListView.as_view() ),
@@ -34,8 +34,8 @@ urlpatterns = [
     path('Loan',LoanListView.as_view() ),
     path('Loan/<int:pk>',LoanListView.as_view() ),
     path('TransferAmount',TransferAmountListView.as_view() ),
-    path('TransferAmount/<int:pk>',TransferAmountListView.as_view() ),
-    path('Lead',LeadListView.as_view()),
-    path('Lead/<int:pk>',LeadListView.as_view())
+    path('TransferAmount/<int:pk>',TransferAmountListView.as_view() ),    # GEt 
+    path('Lead',LeadListView.as_view()),                                       # GET , POST
+    path('Lead/<int:pk>',LeadListView.as_view())                               # GET , PUT , DELETE
 
 ]

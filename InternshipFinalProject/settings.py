@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import mongoengine
 
 from pathlib import Path
 
@@ -39,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Bank',
-  
-    'django_celery_results',
+   # 'django_celery_results',
     'Leads'
 ]
 
@@ -76,46 +76,101 @@ WSGI_APPLICATION = 'InternshipFinalProject.wsgi.application'
 #C:\Users\gorek\OneDrive\Desktop\InternshipFinalProject\Leads\router.py
 DATABASE_ROUTERS = ['Leads.router.LeadRouter']
 DATABASES = {
-    'default':
-    {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bank',
-        'USER': 'postgres',
-        'HOST':'postgres-demo',
-        'PASSWORD': 'Welcome',
-        'PORT': 5432,
-    },
-     
-    'mongo':
-    {
-        "ENGIN":'djongo',
-        'NAME':'mongo_db',
-        'CLIENT':
+   
+        'mongo': {
+            'ENGINE': 'djongo',
+            'NAME': 'leads',
+          #  'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb://root:root@mongo:27017/leads?authSource=admin&retryWrites=true&w=majority'
+            }  
+        },
+        'default':
         {
-            "host":'mongo',
-            "post":27017,
-            "username":"root",
-            "password":"root"
-            },
-        "TEST":{
-            'MIRROR':'default'
-            }
-        }
-    # 'mongo': 
-    # {
-    #     'ENGINE': 'djongo',
-    #     'NAME': 'test',
-    # }
- }
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'HOST':'postgres-demo',
+            'PASSWORD': 'Welcome',
+            'PORT': 5432,
+        },
+}
+# # DATABASES = {
+# #         'default': {
+# #             'ENGINE': 'djongo',
+# #             'NAME': 'leads',
+# #             'ENFORCE_SCHEMA': False,
+# #             'CLIENT': {
+# #                 'host': 'mongodb://root:root@mongo/leads?retryWrites=true&w=majority'
+# #             }  
+# #         }
+# # }
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+
+# #     # 'default':
+# #     # {
+# #     #     'ENGINE': 'django.db.backends.postgresql',
+# #     #     'NAME': 'postgres',
+# #     #     'USER': 'postgres',
+# #     #     'HOST':'postgres-demo',
+# #     #     'PASSWORD': 'Welcome',
+# #     #     'PORT': 5432,
+# #     # },
+     
+# #    'mongo':
+#     'default':
+#     {
+#         'ENGINE': 'djongo',
+#             'NAME': 'leads',
+#             'ENFORCE_SCHEMA': False,
+#             'CLIENT': {
+#             "host":'mongo',
+#             "post":27017,
+#             "username":"root",
+#             "password":"root"
+#                # 'host': 'mongodb+srv://<username>:<password>@<atlas cluster>/<myFirstDatabase>?retryWrites=true&w=majority'
+#             }  
 #     }
 # }
+
+#        #"ENGIN":mongoengine.connect(db='leads', host='mongo', username='root', password='root')
+#   #  }
+#         # 'CLIENT':
+#         # {
+#         #     "host":'mongo',
+#         #     "post":27017,
+#         #     "username":"root",
+#         #     "password":"root"
+            
+#         #     },
+#         # "TEST":{
+#         #     'MIRROR':'default'
+#         #     }
+#         # }
+    
+#     # 'default': {
+#     #         'ENGINE': 'djongo',
+#     #         'NAME': 'your-db-name',
+#     #         'ENFORCE_SCHEMA': False,
+#     #         'CLIENT': {
+#     #             'host': 'mongodb+srv://<username>:<password>@<atlas cluster>/<myFirstDatabase>?retryWrites=true&w=majority'
+#     #         }  
+#     #     }
+#     # 'mongo': 
+#     # {
+#     #     'ENGINE': 'djongo',
+#     #     'NAME': 'test',
+#     # }
+# # }
+# # Database
+# # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+# # DATABASES = {
+# #     'default': {
+# #         'ENGINE': 'django.db.backends.sqlite3',
+# #         'NAME': BASE_DIR / 'db.sqlite3',
+# #     }
+# # }
 
 
 # Password validation
@@ -165,7 +220,7 @@ CELERY_BROKER_URL='redis://redis:6379'
 
 #CELERY_RESULT_BACKEND='django-db'
 
-CELERY_RESULT_BACKEND='redis://redis:6379'
+#CELERY_RESULT_BACKEND='redis://redis:6379'
 CELERY_ACCEPT_CONTENT=['application/json']
 CELERY_RESULT_SERIALIZER= 'json'
 CELERY_TASK_SERIALIZER= 'json'

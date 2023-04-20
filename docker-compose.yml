@@ -6,13 +6,11 @@ services:
     container_name: mongo
     restart: always
     environment:
-      - MONGO INITDB ROOT USERNAME=root
-      - MONGO INITDB ROOT PASSWORD=root
-      - MONGO_INITDB_DATABASE=test
-      - MONGO_INITDB_USERNAME=root
-      - MONGO_INITDB_PASSWORD=root
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=leads
     volumes:
-      - /home/komal/mongodb/database:/data/db 
+      - /data/db 
     ports:
       - 27017:27017
   postgres-demo:
@@ -21,16 +19,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Welcome
-      - POSTGRES_DB=bank
+      - POSTGRES_DB=postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      interval: 10s 
       timeout: 5s
       retries: 5
     ports:
       - 5432:5432
     volumes:
-      - .:/var/lib/my_data
+      - /home/komal/Desktop/data:/var/lib/my_data
     restart: always
   redis:
     image: redis
@@ -38,11 +36,11 @@ services:
     ports:
       -  6379:6379
     volumes:
-      - .:/var/lib/my_data
+      - /home/komal/Desktop/data:/var/lib/my_data
     restart: always
   django:
     image: 
-      django-docker:0.0.1
+      django
     build: .
     tty: true
     ports:
@@ -52,3 +50,13 @@ services:
       - postgres-demo
       - redis
     entrypoint: bash
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"

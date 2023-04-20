@@ -58,7 +58,7 @@ class BranchListView(APIView):
         if pk==None:
             return Response("Enter ID ")
         else:
-            branches = Branch.get_object_or_404( pk=pk)
+            branches = get_object_or_404(Branch ,pk=pk)
             #branchSerializer = BranchSerializer(branches, many=True)
             branches.delete()
             return Response("Deleted !!!")

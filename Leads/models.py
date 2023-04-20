@@ -8,12 +8,11 @@ def checkAccountNumber(data):
         return data
     raise ValidationError("Account number must be of 10 digit") 
 
-# Create your models here.
 class Leads(models.Model):
     leadNumber=models.CharField(max_length=10, primary_key=True,validators=[checkAccountNumber])
     name=models.CharField(max_length=20)
-    
- #   contactNumber= models.CharField(blank=True)
+    class Meta:
+        app_label:'Leads'
  
    
    
