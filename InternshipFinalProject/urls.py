@@ -25,13 +25,13 @@ from Bank.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home),                                                   #### LOAD DATA To DB
-    path('Branch',BranchListView.as_view() ),                        
-    path('Branch/<int:pk>',BranchListView.as_view() ),
-    path('Acc',AccountListView.as_view() ),
-    path('Acc/<int:pk>',AccountListView.as_view() ),
-    path('Transactions',TransactionListView.as_view() ),
-    path('Transactions/<int:pk>',TransactionListView.as_view() ),
-    path('Loan',LoanListView.as_view() ),
+    path('Branch',BranchListView.as_view() ),                        ## GET ,post
+    path('Branch/<int:pk>',BranchListView.as_view() ),               ## GET , PUT, PATCH,DELETE 
+    path('Acc',AccountListView.as_view() ),                          ## GET ,POST
+    path('Acc/<int:pk>',AccountListView.as_view() ),                    #
+    path('Transactions',TransactionListView.as_view() ),                 #POST  
+    path('Transactions/<int:pk>',TransactionListView.as_view() ),          ## ALL Except POST
+    path('Loan',LoanListView.as_view() ),                         
     path('Loan/<int:pk>',LoanListView.as_view() ),
     path('TransferAmount',TransferAmountListView.as_view() ),
     path('TransferAmount/<int:pk>',TransferAmountListView.as_view() ),    # GEt 

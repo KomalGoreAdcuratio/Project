@@ -25,10 +25,10 @@ def dummyData():
             name=fake.name(),
             loc=fake.address()
         )
-        s.save()
+        s.save(using='default')
     n=100
     acc=Account.objects.all()
-    acc.delete()
+   
     BranchId=list(Branch.objects.values_list('id', flat=True))
 
     for i in range(1,n+1):
@@ -41,9 +41,8 @@ def dummyData():
             address=fake.address(),
             balance=round(random.uniform(10000,100000000 ),2)
         )
-        s.save()
-    acc=Loan.objects.all()
-    acc.delete()
+        s.save(using='default')
+    
     Id=list(Account.objects.values_list('accountNumber', flat=True))
     for i in range(1,n+1):
         typeOfLoan=choices=['Home Loan','Business Loan','Personal Loan','Education Loan','Vehicle Loan']
@@ -55,7 +54,7 @@ def dummyData():
             intrestRate=round(random.uniform(1,5),2),
             timeInYears=random.randrange(3,12),
             )
-        s.save()
+        s.save(using='default')
     n=100
     Id=list(Account.objects.values_list('accountNumber', flat=True))
     for i in range(1,n+1):              
@@ -66,7 +65,7 @@ def dummyData():
         )
         if s.accountNumber!=s.toAccountNumber:
             try:
-                s.save()
+                s.save(using='default')
             except:
                 pass
     n=50
@@ -79,9 +78,9 @@ def dummyData():
             amount=random.randrange(10000,1000000,100),
         )    
         if s.type=='Deposit':
-            s.save()
-        elif s.accountNumber.balance-s.amount>=10000:
-            s.save()
+            s.save(using='default')
+        elif s.accountNumber.balance-s.amount>10000:
+            s.save(using='default')
             
     
    

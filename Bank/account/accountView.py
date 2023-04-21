@@ -19,9 +19,11 @@ class AccountListView(APIView):
             accountSerializer = AccountSerializer(account, many=True)
             return Response(accountSerializer.data)
         else:
-            print(pk)
-            account = Account.objects.filter(accountNumber=pk)
-            print(account)
+            try:
+                account=Account.objects.get(accountNumber=pk)
+                
+            except :
+                return Response("Invalid ID !!")
             accountSerializer = AccountSerializer(account)
             return Response(accountSerializer.data)
     @csrf_exempt

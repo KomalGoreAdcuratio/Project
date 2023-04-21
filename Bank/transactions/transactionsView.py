@@ -16,7 +16,7 @@ class TransactionListView(APIView):
         if pk==None:
             transactions = Transaction.objects.all()  #filter(pk=pk)
             print(transactions)
-            transactionsSerializer = transactionsSerializer(transactions, many=True)
+            transactionsSerializer = TransactionsSerializers(transactions)
             return Response(transactionsSerializer.data)
           #  return Response("Enter Valid Account Number !!!! ")
         else:
